@@ -1,17 +1,130 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title> Daftar Mobil </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Daftar Mobil</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          shape="round"
+          color="primary"
+          expand="full"
+          class="ion-no-margin"
+          >Tambah Mobil</ion-button
+        >
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <!-- Car Card -->
+      <ion-col size="12" size-md="6">
+        <ion-card color="dark" class="ion-no-margin">
+          <ion-row>
+            <!-- Car Image -->
+            <ion-col size="5">
+              <ion-img
+                src="assets/images/lance-asper-4-3.jpg"
+                alt="Lance Asper"
+              ></ion-img>
+            </ion-col>
+            <!-- Car Image End -->
+            <!-- Car Info -->
+            <ion-col>
+              <ion-row class="ion-no-padding">
+                <ion-card-title class="card-title ion-no-padding"
+                  >Lance Asper</ion-card-title
+                >
+              </ion-row>
+              <ion-card-content class="ion-no-padding">
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <ion-icon name="calendar-outline"></ion-icon> 2020
+                    <br />
+                    <ion-icon name="person-outline"></ion-icon> 4
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-icon name="cog-outline"></ion-icon> Manual
+                    <br />
+                    <ion-icon name="color-palette-outline"></ion-icon> Hitam
+                  </ion-col>
+                </ion-row>
+                <div class="car-price">Rp 500.000,00 / hari</div>
+              </ion-card-content>
+            </ion-col>
+            <!-- Car Info End -->
+          </ion-row>
+          <!-- Action/Status -->
+          <ion-row class="ion-text-center">
+            <ion-col>
+              <ion-button shape="round" color="primary">Ubah</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button shape="round" color="danger">Hapus</ion-button>
+            </ion-col>
+          </ion-row>
+          <!-- Action/Status End -->
+        </ion-card>
+      </ion-col>
+      <!-- Cars Card End -->
+      <!-- Car Card -->
+      <ion-col size="12" size-md="6">
+        <ion-card color="dark" class="ion-no-margin">
+          <ion-row>
+            <!-- Car Image -->
+            <ion-col size="5">
+              <ion-img
+                src="assets/images/toyota-van-4-3.jpg"
+                alt="Lance Asper"
+              ></ion-img>
+            </ion-col>
+            <!-- Car Image End -->
+            <!-- Car Info -->
+            <ion-col>
+              <ion-row class="ion-no-padding">
+                <ion-card-title class="card-title ion-no-padding"
+                  >Toyota Van</ion-card-title
+                >
+              </ion-row>
+              <ion-card-content class="ion-no-padding">
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <ion-icon name="calendar-outline"></ion-icon> 2020
+                    <br />
+                    <ion-icon name="person-outline"></ion-icon> 6
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-icon name="cog-outline"></ion-icon> Matic
+                    <br />
+                    <ion-icon name="color-palette-outline"></ion-icon> Hitam
+                  </ion-col>
+                </ion-row>
+                <div class="car-price">Rp 400.000,00 / hari</div>
+              </ion-card-content>
+            </ion-col>
+            <!-- Car Info End -->
+          </ion-row>
+          <!-- Action/Status -->
+          <ion-row class="ion-text-center">
+            <ion-col>
+              <ion-button shape="round" color="primary">Ubah</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button shape="round" color="danger">Hapus</ion-button>
+            </ion-col>
+          </ion-row>
+          <!-- Action/Status End -->
+        </ion-card>
+      </ion-col>
+      <!-- Cars Card End -->
+    </ion-row>
+  </ion-grid>
+  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
 </ion-content>
