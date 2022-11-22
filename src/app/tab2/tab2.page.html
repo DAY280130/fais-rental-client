@@ -1,24 +1,57 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Tab 2 </ion-title>
+    <ion-title> Pesanan Masuk </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Pesanan Masuk</ion-title>
     </ion-toolbar>
   </ion-header>
-  Tanggal :<ion-datetime-button
-    shape="round"
-    datetime="datetime"
-  ></ion-datetime-button>
-
-  <ion-modal [keepContentsMounted]="true">
-    <ng-template>
-      <ion-datetime id="datetime" presentation="date"></ion-datetime>
-    </ng-template>
-  </ion-modal>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <!-- Order Card -->
+      <ion-col size="12" size-md="8">
+        <ion-card color="dark" class="ion-no-margin">
+          <ion-card-content class="ion-no-margin">
+            <ion-item color="dark" lines="none">
+              <span slot="start">Kode Transaksi</span>
+              <span slot="end">DIMAS0001</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span slot="start">Durasi</span>
+              <span slot="end">3 hari</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span slot="start">Penyewa</span>
+              <span slot="end">Dimas</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span slot="start">Nomor HP</span>
+              <span slot="end">089643004343</span>
+            </ion-item>
+            <ion-item color="dark" lines="full">
+              <span slot="start">Nomor KTP</span>
+              <span slot="end">1234123412341234</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span class="price" slot="start">Rp 500.000,00</span>
+              <ion-button
+                color="danger"
+                shape="round"
+                slot="end"
+                size="large"
+                class="ion-no-margin"
+                >Konfirmasi</ion-button
+              >
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Order Card End -->
+    </ion-row>
+  </ion-grid>
   <!-- <app-explore-container name="Tab 2 page"></app-explore-container> -->
 </ion-content>

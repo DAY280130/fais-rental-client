@@ -37,7 +37,8 @@ ion-card-content ion-col span {
   }
 }
 
-.car-price {
+.price {
+  font-weight: 600;
   @media (max-width: 577px) {
     font-size: 0.6rem;
   }
