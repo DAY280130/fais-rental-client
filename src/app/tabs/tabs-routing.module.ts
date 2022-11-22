@@ -1,12 +1,29 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+
+const role = 'admin';
 
 const routes: Routes = [
   {
     path: 'tabs',
     component: TabsPage,
-    children: [
+    children: retChildren(role),
+  },
+  {
+    path: '',
+    redirectTo: '/tabs/beranda',
+    pathMatch: 'full',
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+})
+export class TabsPageRoutingModule {}
+function retChildren(role: any): Route[] {
+  if (role == 'admin') {
+    return [
       {
         path: 'beranda',
         loadChildren: () =>
@@ -27,16 +44,52 @@ const routes: Routes = [
         redirectTo: '/tabs/beranda',
         pathMatch: 'full',
       },
-    ],
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/beranda',
-    pathMatch: 'full',
-  },
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-})
-export class TabsPageRoutingModule {}
+    ];
+  } else if (role == 'customer') {
+    return [
+      {
+        path: 'beranda',
+        loadChildren: () =>
+          import('../tab4/tab4.module').then((m) => m.Tab4PageModule),
+      },
+      {
+        path: 'pesanan',
+        loadChildren: () =>
+          import('../tab5/tab5.module').then((m) => m.Tab5PageModule),
+      },
+      {
+        path: 'profil',
+        loadChildren: () =>
+          import('../tab6/tab6.module').then((m) => m.Tab6PageModule),
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/beranda',
+        pathMatch: 'full',
+      },
+    ];
+  } else {
+    return [
+      {
+        path: 'beranda',
+        loadChildren: () =>
+          import('../tab7/tab7.module').then((m) => m.Tab7PageModule),
+      },
+      {
+        path: 'pesanan',
+        loadChildren: () =>
+          import('../tab7/tab7.module').then((m) => m.Tab7PageModule),
+      },
+      {
+        path: 'profil',
+        loadChildren: () =>
+          import('../tab7/tab7.module').then((m) => m.Tab7PageModule),
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/beranda',
+        pathMatch: 'full',
+      },
+    ];
+  }
+}
