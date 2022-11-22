@@ -40,11 +40,15 @@ ion-button {
 ion-card ion-button {
   margin-top: 5%;
   @media (max-width: 577px) {
-    width: 70%;
+    width: 100%;
     font-size: 0.5rem;
   }
   @media (min-width: 578px) {
     width: 50%;
+    font-size: 0.8rem;
+  }
+  @media (min-width: 992px) {
+    width: 30%;
     font-size: 0.8rem;
   }
 }
