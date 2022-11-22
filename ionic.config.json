@@ -1,0 +1,7 @@
+{
+  "name": "fais-rental-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
