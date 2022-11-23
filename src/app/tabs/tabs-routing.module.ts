@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 
-const role = 'admin';
+const role = 'customer';
 
 const routes: Routes = [
   {

@@ -1,17 +1,135 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Tab 4 </ion-title>
+    <ion-title> Pilih Mobil </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 4</ion-title>
+      <ion-title size="large">Pilih Mobil</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 4 page"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <!-- Car Card -->
+      <ion-col size="12" size-md="6">
+        <ion-card color="dark" class="ion-no-margin" disabled>
+          <ion-row>
+            <!-- Car Image -->
+            <ion-col size="5">
+              <ion-img
+                src="assets/images/lance-asper-4-3.jpg"
+                alt="Lance Asper"
+              ></ion-img>
+            </ion-col>
+            <!-- Car Image End -->
+            <!-- Car Info -->
+            <ion-col>
+              <!-- Car Name -->
+              <ion-row class="ion-no-padding">
+                <ion-card-title class="card-title ion-no-padding"
+                  >Lance Asper</ion-card-title
+                >
+              </ion-row>
+              <!-- Car Name End -->
+              <!-- Car More Info -->
+              <ion-card-content class="ion-no-padding">
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <span>
+                      <ion-icon name="calendar-outline"></ion-icon> 2020
+                    </span>
+                    <span> <ion-icon name="person-outline"></ion-icon> 4 </span>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <span>
+                      <ion-icon name="cog-outline"></ion-icon> Manual
+                    </span>
+                    <span>
+                      <ion-icon name="color-palette-outline"></ion-icon> Hitam
+                    </span>
+                  </ion-col>
+                </ion-row>
+                <div class="price">Rp 500.000,00 / hari</div>
+              </ion-card-content>
+              <!-- Car More Info End -->
+            </ion-col>
+            <!-- Car Info End -->
+          </ion-row>
+          <!-- Action/Status -->
+          <ion-row class="ion-justify-content-center">
+            <ion-col size="9" size-md="6">
+              <ion-button shape="round" color="medium" expand="full" disabled>
+                Tidak Tersedia
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <!-- Action/Status End -->
+        </ion-card>
+      </ion-col>
+      <!-- Car Card End -->
+      <!-- Car Card -->
+      <ion-col size="12" size-md="6">
+        <ion-card color="dark" class="ion-no-margin">
+          <ion-row>
+            <!-- Car Image -->
+            <ion-col size="5">
+              <ion-img
+                src="assets/images/toyota-van-4-3.jpg"
+                alt="Lance Asper"
+              ></ion-img>
+            </ion-col>
+            <!-- Car Image End -->
+            <!-- Car Info -->
+            <ion-col>
+              <!-- Car Name -->
+              <ion-row class="ion-no-padding">
+                <ion-card-title class="card-title ion-no-padding"
+                  >Toyota Van</ion-card-title
+                >
+              </ion-row>
+              <!-- Car Name End -->
+              <!-- Car More Info -->
+              <ion-card-content class="ion-no-padding">
+                <ion-row>
+                  <ion-col class="ion-no-padding">
+                    <span>
+                      <ion-icon name="calendar-outline"></ion-icon> 2020
+                    </span>
+                    <span> <ion-icon name="person-outline"></ion-icon> 6 </span>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <span>
+                      <ion-icon name="cog-outline"></ion-icon> Manual
+                    </span>
+                    <span>
+                      <ion-icon name="color-palette-outline"></ion-icon> Hitam
+                    </span>
+                  </ion-col>
+                </ion-row>
+                <div class="price">Rp 400.000,00 / hari</div>
+              </ion-card-content>
+              <!-- Car More Info End -->
+            </ion-col>
+            <!-- Car Info End -->
+          </ion-row>
+          <!-- Action/Status -->
+          <ion-row class="ion-justify-content-center">
+            <ion-col size="9" size-md="6">
+              <ion-button shape="round" color="success" expand="full" disabled>
+                Tersedia
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <!-- Action/Status End -->
+        </ion-card>
+      </ion-col>
+      <!-- Car Card End -->
+    </ion-row>
+  </ion-grid>
+  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
 </ion-content>
 
 <!-- <ion-header>

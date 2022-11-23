@@ -11,7 +11,63 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 5 page"></app-explore-container>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <!-- Order Card -->
+      <ion-col size="12" size-md="8" size-lg="6">
+        <ion-card color="dark" class="ion-no-margin">
+          <ion-card-content class="ion-no-margin">
+            <ion-item color="dark" lines="none">
+              <span slot="start">Kode Transaksi</span>
+              <span slot="end">DIMAS0001</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span slot="start">Durasi</span>
+              <span slot="end">3 hari</span>
+            </ion-item>
+            <ion-item color="dark" lines="full">
+              <span slot="start">Penyewa</span>
+              <span slot="end">Dimas</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span class="price" slot="start">Rp 500.000,00</span>
+              <span class="ion-text-end ion-no-margin confirmed" slot="end">
+                Sudah Dikonfirmasi
+              </span>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Order Card End -->
+      <!-- Order Card -->
+      <ion-col size="12" size-md="8" size-lg="6">
+        <ion-card color="dark" class="ion-no-margin">
+          <ion-card-content class="ion-no-margin">
+            <ion-item color="dark" lines="none">
+              <span slot="start">Kode Transaksi</span>
+              <span slot="end">DIMAS0002</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span slot="start">Durasi</span>
+              <span slot="end">3 hari</span>
+            </ion-item>
+            <ion-item color="dark" lines="full">
+              <span slot="start">Penyewa</span>
+              <span slot="end">Dimas</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span class="price" slot="start">Rp 400.000,00</span>
+              <span class="ion-text-end ion-no-margin processing" slot="end">
+                Menunggu Konfirmasi
+              </span>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Order Card End -->
+    </ion-row>
+  </ion-grid>
+  <!-- <app-explore-container name="Tab 5 page"></app-explore-container> -->
 </ion-content>
 <!-- <ion-header>
   <ion-toolbar>
