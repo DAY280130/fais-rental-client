@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">fais-rental-client</string>
-    <string name="title_activity_main">fais-rental-client</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">Fais-Rental</string>
+    <string name="title_activity_main">Fais-Rental</string>
+    <string name="package_name">com.fais.faisrental</string>
+    <string name="custom_url_scheme">com.fais.faisrental</string>
 </resources>
