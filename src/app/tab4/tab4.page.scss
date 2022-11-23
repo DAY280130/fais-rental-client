@@ -50,16 +50,17 @@ ion-card-content ion-col span {
   }
 }
 
-ion-button {
-  font-weight: 600;
-}
+ion-card.status {
+  border-radius: 25px;
 
-ion-card ion-button {
-  @media (max-width: 577px) {
-    padding: 0.2rem 0.1rem;
-    font-size: 0.6rem;
-  }
-  @media (min-width: 578px) {
-    font-size: 0.9rem;
+  ion-card-content {
+    font-weight: 600;
+    @media (max-width: 577px) {
+      padding: 0.3rem 0;
+      font-size: 0.8rem;
+    }
+    @media (min-width: 578px) {
+      font-size: 1.2rem;
+    }
   }
 }
