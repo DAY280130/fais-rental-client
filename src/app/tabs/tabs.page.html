@@ -19,9 +19,7 @@
         [checked]="isChecked"
         (ionChange)="changeMode()"
       ></ion-toggle>
-      <ion-label color="{{(mode == 'customer')? 'primary' : ''}}"
-        >Customer Mode</ion-label
-      >
+      <ion-label color="{{isChecked? 'primary' : ''}}">Customer Mode</ion-label>
     </div>
   </ion-tab-bar>
 </ion-tabs>
