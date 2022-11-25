@@ -1,0 +1,62 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <ion-img
+    src="assets/images/upper-texture.svg"
+    alt="upper-texture"
+    class="background"
+  ></ion-img>
+  <ion-grid>
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="12" size-lg="7">
+        <span class="welcome">Selamat datang,</span>
+        <span class="welcome sub-welcome">Masuk untuk melanjutkan</span>
+      </ion-col>
+      <ion-col class="ion-no-padding">
+        <ion-card class="ion-no-margin">
+          <ion-card-content>
+            <ion-item color="transparent">
+              <ion-label position="floating" color="primary">Email</ion-label>
+              <ion-input
+                type="email"
+                placeholder="Masukkan email"
+                required="required"
+                [(ngModel)]="email"
+              ></ion-input>
+            </ion-item>
+            <ion-item color="transparent">
+              <ion-label position="floating" color="primary"
+                >Kata Sandi</ion-label
+              >
+              <ion-input
+                type="password"
+                placeholder="Masukkan kata sandi"
+                required="required"
+                [(ngModel)]="password"
+              ></ion-input>
+            </ion-item>
+            <span class="ion-text-end form-texts">
+              <a href="">Lupa kata sandi?</a>
+            </span>
+            <ion-button
+              type="submit"
+              color="primary"
+              expand="block"
+              shape="round"
+              (click)="login()"
+            >
+              Masuk
+            </ion-button>
+            <span class="ion-text-center form-texts">
+              Belum punya akun? <a href="">Daftar</a>
+            </span>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

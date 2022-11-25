@@ -1,0 +1,53 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+
+ion-grid {
+  margin: 18vh 10vw;
+  z-index: 99;
+}
+
+.welcome {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-shadow: 0 0 10px #1e192f;
+  @media (min-width: 786px) {
+    font-size: 3rem;
+  }
+}
+
+.sub-welcome {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  @media (min-width: 786px) {
+    font-size: 2rem;
+  }
+}
+
+ion-card {
+  border-radius: 20px;
+}
+
+ion-item::part(native) {
+  margin-bottom: 5%;
+  --padding-start: 0;
+  --inner-padding-start: 0;
+}
+
+.form-texts {
+  display: block;
+  a {
+    text-decoration: none;
+  }
+}
+
+ion-button {
+  margin-top: 20%;
+  font-weight: 600;
+}

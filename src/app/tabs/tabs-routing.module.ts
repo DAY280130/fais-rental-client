@@ -1,52 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
+import { Preferences } from '@capacitor/preferences';
 import { TabsPage } from './tabs.page';
 
-const role = 'customer';
-
-const routes: Routes = [
-  {
-    path: 'tabs',
-    component: TabsPage,
-    children: retChildren(role),
-  },
+let routes: Routes = [
   {
     path: '',
-    redirectTo: '/tabs/beranda',
-    pathMatch: 'full',
-  },
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-})
-export class TabsPageRoutingModule {}
-function retChildren(role: any): Route[] {
-  if (role == 'admin') {
-    return [
+    component: TabsPage,
+    children: [
       {
-        path: 'beranda',
+        path: 'admin-beranda',
         loadChildren: () =>
           import('../tab1/tab1.module').then((m) => m.Tab1PageModule),
       },
       {
-        path: 'pesanan',
+        path: 'admin-pesanan',
         loadChildren: () =>
           import('../tab2/tab2.module').then((m) => m.Tab2PageModule),
       },
       {
-        path: 'profil',
+        path: 'admin-profil',
         loadChildren: () =>
           import('../tab3/tab3.module').then((m) => m.Tab3PageModule),
       },
-      {
-        path: '',
-        redirectTo: '/tabs/beranda',
-        pathMatch: 'full',
-      },
-    ];
-  } else if (role == 'customer') {
-    return [
       {
         path: 'beranda',
         loadChildren: () =>
@@ -63,33 +39,21 @@ function retChildren(role: any): Route[] {
           import('../tab6/tab6.module').then((m) => m.Tab6PageModule),
       },
       {
-        path: '',
-        redirectTo: '/tabs/beranda',
+        path: ':id',
+        loadChildren: () =>
+          import('../tab7/tab7.module').then((m) => m.Tab7PageModule),
         pathMatch: 'full',
-      },
-    ];
-  } else {
-    return [
-      {
-        path: 'beranda',
-        loadChildren: () =>
-          import('../tab7/tab7.module').then((m) => m.Tab7PageModule),
-      },
-      {
-        path: 'pesanan',
-        loadChildren: () =>
-          import('../tab7/tab7.module').then((m) => m.Tab7PageModule),
-      },
-      {
-        path: 'profil',
-        loadChildren: () =>
-          import('../tab7/tab7.module').then((m) => m.Tab7PageModule),
       },
       {
         path: '',
-        redirectTo: '/tabs/beranda',
+        redirectTo: 'admin-beranda',
         pathMatch: 'full',
       },
-    ];
-  }
-}
+    ],
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+})
+export class TabsPageRoutingModule {}
