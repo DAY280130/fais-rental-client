@@ -3,8 +3,6 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ApiService } from '../services/api.service';
 import { Preferences } from '@capacitor/preferences';
 
-const TOKEN_KEY = 'my-token';
-const USER_KEY = 'my-username';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -31,9 +29,9 @@ export class LoginPage implements OnInit {
         if (respond.data.login_status == 'success') {
           this.email = '';
           this.password = '';
-          Preferences.set({ key: TOKEN_KEY, value: respond.data.token });
+          Preferences.set({ key: 'token', value: respond.data.token });
           Preferences.set({
-            key: USER_KEY,
+            key: 'user',
             value: respond.data.nama.substr(0, respond.data.nama.indexOf(' ')),
           });
           Preferences.set({ key: 'role', value: respond.data.role });

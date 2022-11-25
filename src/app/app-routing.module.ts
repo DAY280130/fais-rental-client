@@ -21,6 +21,11 @@ const routes: Routes = [
       import('./login/login.module').then((m) => m.LoginPageModule),
     canLoad: [AutoLoginGuard],
   },
+  {
+    path: ':id',
+    redirectTo: 'app',
+    pathMatch: 'full',
+  },
 ];
 @NgModule({
   imports: [

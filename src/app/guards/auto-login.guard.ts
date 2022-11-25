@@ -26,7 +26,7 @@ export class AutoLoginGuard implements CanLoad {
         // console.log('autoLogin : ' + isAuthenticated);
         if (isAuthenticated === true) {
           console.log('sudah login');
-          this.router.navigateByUrl('/app/', { replaceUrl: true });
+          this.router.navigateByUrl('/app/admin-beranda', { replaceUrl: true });
           return true;
         } else {
           console.log('belum login');

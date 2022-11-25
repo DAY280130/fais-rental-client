@@ -1,32 +1,31 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Router } from '@angular/router';
+import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { filter, map, Observable, take } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanLoad {
+export class AdminGuard implements CanLoad {
   constructor(
     private authService: AuthenticationService,
     private router: Router
   ) {}
 
-  // canLoad(
-  //   route: Route,
-  //   segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-  //   return true;
-  // }
   canLoad(): Observable<boolean> {
-    return this.authService.isAuthenticated.pipe(
+    return this.authService.assignedRole.pipe(
       filter((val) => val !== null),
       take(1),
-      map((isAuthenticated: any) => {
-        if (isAuthenticated === true) {
+      map((assignedRole) => {
+        if (assignedRole === 'admin') {
           return true;
+        } else if (assignedRole === 'customer') {
+          this.router.navigateByUrl('app/beranda', { replaceUrl: true });
+          console.log('anda customer');
+          return false;
         } else {
           this.router.navigateByUrl('login');
-          console.log('belum login');
+          console.log('belum login juga');
           return false;
         }
       })
