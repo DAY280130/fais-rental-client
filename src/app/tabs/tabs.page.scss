@@ -1,5 +1,16 @@
 div {
-  display: flex;
+  @media (max-width: 767px) {
+    ion-toggle {
+      padding-left: 28% !important;
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+      margin-bottom: 0 !important;
+      display: block;
+    }
+  }
+  @media (min-width: 768px) {
+    display: flex;
+  }
 }
 div ion-label {
   font-size: 0.75rem;
