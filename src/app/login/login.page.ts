@@ -12,10 +12,7 @@ export class LoginPage implements OnInit {
   email: string;
   password: string;
 
-  constructor(
-    private authService: AuthenticationService,
-    private api: ApiService
-  ) {
+  constructor(private api: ApiService) {
     this.email = '';
     this.password = '';
   }
@@ -30,10 +27,7 @@ export class LoginPage implements OnInit {
           this.email = '';
           this.password = '';
           Preferences.set({ key: 'token', value: respond.data.token });
-          Preferences.set({
-            key: 'user',
-            value: respond.data.nama.substr(0, respond.data.nama.indexOf(' ')),
-          });
+          Preferences.set({ key: 'user', value: respond.data.nama });
           Preferences.set({ key: 'role', value: respond.data.role });
           location.reload();
         }

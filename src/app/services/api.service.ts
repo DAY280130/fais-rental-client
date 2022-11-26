@@ -33,4 +33,15 @@ export class ApiService {
       })
     );
   }
+
+  accounCheckToken(data: Object): Observable<any> {
+    return from(
+      Http.request({
+        method: 'POST',
+        url: this.baseApiUrl() + 'accounts/token',
+        headers: { 'Content-Type': 'application/json' },
+        data,
+      })
+    );
+  }
 }

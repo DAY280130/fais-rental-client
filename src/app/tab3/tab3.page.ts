@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Preferences } from '@capacitor/preferences';
 import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -8,12 +9,21 @@ import { AuthenticationService } from '../services/authentication.service';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss'],
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit {
   constructor(
     private authService: AuthenticationService,
     private alertController: AlertController,
     private router: Router
   ) {}
+  async ngOnInit() {
+    await this.loadId();
+  }
+
+  async loadId() {
+    this.authService.checkToken().then(async () => {
+      console.log('tab3', (await Preferences.get({ key: 'id' })).value);
+    });
+  }
   logout() {
     this.alertController
       .create({

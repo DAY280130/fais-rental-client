@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { BehaviorSubject } from 'rxjs';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,14 +9,15 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthenticationService {
   isAuthenticated: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   assignedRole: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  token: string = '';
-  role: string = '';
+  private token: string = '';
+  private role: string = '';
+  private id: any;
 
-  constructor() {
-    this.loadUserData();
+  constructor(private api: ApiService) {
+    this.authenticateUser();
   }
 
-  async loadUserData() {
+  async authenticateUser() {
     const token = await Preferences.get({ key: 'token' });
     const role = await Preferences.get({ key: 'role' });
     // console.log(token);
@@ -33,6 +35,25 @@ export class AuthenticationService {
       this.assignedRole.next('');
       this.isAuthenticated.next(false);
     }
+  }
+
+  async checkToken() {
+    let id;
+    const data = {
+      token: (await Preferences.get({ key: 'token' })).value,
+      user: (await Preferences.get({ key: 'user' })).value,
+      role: (await Preferences.get({ key: 'role' })).value,
+    };
+    this.api.accounCheckToken(data).subscribe(async (respond) => {
+      if (respond.data.message !== 'Token verified') {
+        this.logout();
+        location.reload();
+      } else {
+        // console.log(respond);
+        this.id = respond.data.id;
+        await Preferences.set({ key: 'id', value: this.id });
+      }
+    });
   }
 
   logout(): Promise<void> {
