@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';
+import { ImageService } from './image.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AuthenticationService {
   private role: string = '';
   private id: any;
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private imgServ: ImageService) {
     this.authenticateUser();
   }
 
@@ -26,11 +27,11 @@ export class AuthenticationService {
       // console.log('set token: ', token.value);
       this.token = token.value;
       this.role = role.value;
-      console.log(this.token, this.role);
+      // console.log(this.token, this.role);
 
       this.isAuthenticated.next(true);
       this.assignedRole.next(this.role);
-      console.log('authServ : ', this.isAuthenticated);
+      // console.log('authServ : ', this.isAuthenticated);
     } else {
       this.assignedRole.next('');
       this.isAuthenticated.next(false);
@@ -44,7 +45,9 @@ export class AuthenticationService {
       user: (await Preferences.get({ key: 'user' })).value,
       role: (await Preferences.get({ key: 'role' })).value,
     };
-    this.api.accounCheckToken(data).subscribe(async (respond) => {
+    this.api.accountCheckToken(data).subscribe(async (respond) => {
+      // console.log(respond);
+
       if (respond.data.message !== 'Token verified') {
         this.logout();
         location.reload();

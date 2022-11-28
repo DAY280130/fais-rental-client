@@ -1,0 +1,98 @@
+<ion-content [fullscreen]="true">
+  <ion-img
+    src="assets/images/upper-texture.svg"
+    alt="upper-texture"
+    class="background"
+  ></ion-img>
+  <ion-grid>
+    <ion-row class="ion-align-items-stretch">
+      <ion-col size="12" size-lg="5" class="ion-no-padding">
+        <span class="welcome">Daftar Akun</span><br />
+        <span class="welcome sub-welcome">Buat akun untuk melanjutkan</span>
+        <ion-card>
+          <ion-card-content class="ion-text-center">
+            <div class="profile">
+              <img
+                src="{{(image.data != '') ? image.data : preview}}"
+                alt="profile-picture"
+                class="pic-profile"
+              />
+              <ion-button
+                color="dark"
+                shape="round"
+                class="btn-profile-right"
+                (click)="selectImage()"
+              >
+                <ion-icon name="pencil-outline" color="light"></ion-icon>
+              </ion-button>
+              <ion-button
+                color="danger"
+                shape="round"
+                class="btn-profile-left"
+                (click)="deleteSelected()"
+              >
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="ion-no-padding">
+        <ion-card class="">
+          <ion-card-content>
+            <ion-item color="transparent">
+              <ion-label position="floating" color="primary">Nama</ion-label>
+              <ion-input
+                type="text"
+                placeholder="Masukkan nama"
+                required="required"
+                [(ngModel)]="nama"
+              ></ion-input>
+            </ion-item>
+            <ion-item color="transparent">
+              <ion-label position="floating" color="primary">Email</ion-label>
+              <ion-input
+                type="email"
+                placeholder="Masukkan email"
+                required="required"
+                [(ngModel)]="email"
+              ></ion-input>
+            </ion-item>
+            <ion-item color="transparent">
+              <ion-label position="floating" color="primary"
+                >Kata Sandi</ion-label
+              >
+              <ion-input
+                type="password"
+                placeholder="Masukkan kata sandi"
+                required="required"
+                [(ngModel)]="password"
+              ></ion-input>
+            </ion-item>
+            <ion-button
+              type="submit"
+              color="primary"
+              expand="block"
+              shape="round"
+              (click)="register()"
+            >
+              Daftar
+            </ion-button>
+            <span class="ion-text-center form-texts">
+              punya akun? <a href="/login">Login</a>
+            </span>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content> -->

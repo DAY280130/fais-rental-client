@@ -6,15 +6,29 @@
   z-index: 0;
 }
 
-ion-card {
-  border-radius: 20px;
-}
-
 ion-grid {
-  margin: 8vh 10vw;
+  margin: 18vh 10vw;
   z-index: 3;
 }
 
+.welcome {
+  display: inline-block;
+  margin-bottom: 5px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-shadow: 0 0 10px #1e192f;
+  @media (min-width: 786px) {
+    font-size: 3rem;
+  }
+}
+
+.sub-welcome {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  @media (min-width: 786px) {
+    font-size: 1rem;
+  }
+}
 .profile {
   display: inline-block;
   position: relative;
@@ -50,9 +64,8 @@ ion-grid {
   }
 }
 
-.label {
-  display: inline-block;
-  min-width: 50px;
+ion-card {
+  border-radius: 20px;
 }
 
 ion-item::part(native) {
@@ -69,5 +82,6 @@ ion-item::part(native) {
 }
 
 ion-button[type="submit"] {
+  margin-top: 20%;
   font-weight: 600;
 }

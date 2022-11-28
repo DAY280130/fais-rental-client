@@ -1,0 +1,73 @@
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+
+ion-card {
+  border-radius: 20px;
+}
+
+ion-grid {
+  margin: 8vh 10vw;
+  z-index: 3;
+}
+
+.profile {
+  display: inline-block;
+  position: relative;
+  .pic-profile {
+    width: 35vmin;
+    height: 35vmin;
+    border-radius: 50%;
+  }
+
+  .btn-profile-right {
+    position: absolute;
+    z-index: 5;
+    bottom: 5%;
+    right: 5%;
+    --padding-start: 9px !important;
+    --padding-end: 9px !important;
+    @media (min-width: 786px) {
+      width: 50px !important;
+      height: 50px !important;
+    }
+  }
+  .btn-profile-left {
+    position: absolute;
+    z-index: 5;
+    bottom: 5%;
+    left: 5%;
+    --padding-start: 9px !important;
+    --padding-end: 9px !important;
+    @media (min-width: 786px) {
+      width: 50px !important;
+      height: 50px !important;
+    }
+  }
+}
+
+.label {
+  display: inline-block;
+  min-width: 50px;
+}
+
+ion-item::part(native) {
+  margin-bottom: 5%;
+  --padding-start: 0;
+  --inner-padding-start: 0;
+}
+
+.form-texts {
+  display: block;
+  a {
+    text-decoration: none;
+  }
+}
+
+ion-button[type="submit"] {
+  font-weight: 600;
+}

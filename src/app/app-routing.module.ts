@@ -22,6 +22,12 @@ const routes: Routes = [
     canLoad: [AutoLoginGuard],
   },
   {
+    path: 'register',
+    loadChildren: () =>
+      import('./register/register.module').then((m) => m.RegisterPageModule),
+    canLoad: [AutoLoginGuard],
+  },
+  {
     path: ':id',
     redirectTo: 'app',
     pathMatch: 'full',

@@ -1,4 +1,5 @@
 {
   "ionic.previewInEditor": false,
-  "ionic.liveReload": true
+  "ionic.liveReload": true,
+  "java.configuration.updateBuildConfiguration": "disabled"
 }

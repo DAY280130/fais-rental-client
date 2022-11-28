@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
 
   login() {
     this.api
-      .accountGetToken({ email: this.email, password: this.password })
+      .accountLogin({ email: this.email, password: this.password })
       .subscribe((respond) => {
         if (respond.data.login_status == 'success') {
           this.email = '';

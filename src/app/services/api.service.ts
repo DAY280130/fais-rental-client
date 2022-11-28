@@ -1,29 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@capacitor-community/http';
+import { HttpClient } from '@angular/common/http';
 import { from, Observable } from 'rxjs';
-// import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   baseApiUrl(): string {
     return 'http://192.168.1.5:8000/api/';
   }
 
-  // accountGET(params: string) {
-  //   return from(
-  //     Http.request({
-  //       method: 'GET',
-  //       url: this.baseApiUrl() + 'accounts' + params,
-  //       headers: { 'Content-Type': 'application/json' },
-  //     })
-  //   );
-  // }
-
-  accountGetToken(data: Object): Observable<any> {
+  accountLogin(data: Object): Observable<any> {
     return from(
       Http.request({
         method: 'POST',
@@ -34,7 +24,62 @@ export class ApiService {
     );
   }
 
-  accounCheckToken(data: Object): Observable<any> {
+  accountRegister(data: Object): Observable<any> {
+    return from(
+      Http.request({
+        method: 'POST',
+        url: this.baseApiUrl() + 'accounts/register',
+        headers: { 'Content-Type': 'application/json' },
+        data,
+      })
+    );
+  }
+
+  accountEdit(data: Object): Observable<any> {
+    return from(
+      Http.request({
+        method: 'POST',
+        url: this.baseApiUrl() + 'accounts/edit',
+        headers: { 'Content-Type': 'application/json' },
+        data,
+      })
+    );
+  }
+
+  accountGetDetails(id: string) {
+    return from(
+      Http.request({
+        method: 'GET',
+        url: this.baseApiUrl() + 'accounts/details/' + id,
+      })
+    );
+  }
+
+  uploadProfileImage(img: Blob, imageName: string) {
+    const formData = new FormData();
+    formData.append('profile', img, imageName);
+    formData.append('test', 'test-value');
+    return this.http.post(this.baseApiUrl() + 'accounts/upload', formData);
+  }
+
+  deleteProfileImage(imageName: string) {
+    // const formData = new FormData();
+    // formData.append('filename', imageName);
+    // console.log(formData);
+    // return this.http.post(this.baseApiUrl() + 'accounts/delimg', formData);
+    return from(
+      Http.request({
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        url: this.baseApiUrl() + 'accounts/delimg',
+        data: {
+          filename: imageName,
+        },
+      })
+    );
+  }
+
+  accountCheckToken(data: Object): Observable<any> {
     return from(
       Http.request({
         method: 'POST',
