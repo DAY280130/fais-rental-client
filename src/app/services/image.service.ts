@@ -26,7 +26,7 @@ export class ImageService {
     image.data = '';
 
     const loading = await loadingCtrl.create({
-      message: 'loading image',
+      message: 'memuat gambar',
     });
 
     await loading.present();

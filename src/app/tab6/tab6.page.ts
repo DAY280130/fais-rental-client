@@ -21,7 +21,7 @@ export class Tab6Page implements OnInit {
   email: string | null = '';
   role: string | null = '';
   profile: string = '';
-  oldProfile: string = '';
+  // oldProfile: string = '';
   disabledInput: boolean = true;
   image: LocalFile = { name: '', path: '', data: '' };
 
@@ -38,6 +38,7 @@ export class Tab6Page implements OnInit {
     await this.loadUserData();
     await this.authService.checkToken();
     this.id = (await Preferences.get({ key: 'id' })).value;
+    console.log(this.image);
     this.image = await this.imgServ.loadLocalImage(
       IMAGE_DIR,
       this.image,
@@ -56,7 +57,7 @@ export class Tab6Page implements OnInit {
           this.email = respond.data.email;
           this.role = respond.data.role;
           this.profile = respond.data.profile;
-          this.oldProfile = respond.data.profile;
+          // this.oldProfile = respond.data.profile;
           // console.log(this.profile);
           if (this.profile != '') {
             this.image.data = `${this.api.baseApiUrl()}accounts/image/${
@@ -71,10 +72,17 @@ export class Tab6Page implements OnInit {
       });
     // if (!this.id) {
     // }
+    console.log(this.id);
   }
+
+  baseImgUrl(): string {
+    return this.api.baseApiUrl() + 'accounts/image/';
+  }
+
   async loadUserData() {
     this.token = (await Preferences.get({ key: 'token' })).value;
   }
+
   logout() {
     this.alertController
       .create({
@@ -101,6 +109,7 @@ export class Tab6Page implements OnInit {
         res.present();
       });
   }
+
   async selectImage() {
     // if already select image previously
     if (this.image.path != '') {
@@ -139,28 +148,35 @@ export class Tab6Page implements OnInit {
   async cancelUpdate() {
     this.disabledInput = true;
     this.nama = this.oldNama;
-    if (!this.profile || this.profile != '') {
-      this.image.data = `${this.api.baseApiUrl()}accounts/image/${
-        this.profile
-      }`;
-      this.image.name = this.profile;
+    if (!this.profile && this.profile != '') {
+      this.image.data = `${this.baseImgUrl()}`;
+      // this.image.name = this.profile;
     } else {
-      this.image.data = { name: '', path: '', data: '' };
+      this.image = { name: '', path: '', data: '' };
     }
   }
 
   async update() {
+    await this.authService.checkToken();
+    this.id = (await Preferences.get({ key: 'id' })).value;
+    console.log(this.id);
+
     if (
       this.nama == this.oldNama &&
-      this.image.data ==
-        `${this.api.baseApiUrl()}accounts/image/${this.profile}`
+      (this.image.data == `${this.baseImgUrl()}` ||
+        this.image.name == this.profile)
     ) {
-      console.log('tidak ada yang berubah');
-
+      this.alertController
+        .create({
+          header: 'Notifikasi',
+          subHeader: 'Tidak ada yang berubah',
+          buttons: ['OK'],
+        })
+        .then((res) => res.present());
       return;
     }
     const loading = await this.loadingCtrl.create({
-      message: 'loading images',
+      message: 'mengupload data...',
     });
     // let msg; // debug
     await loading.present();
@@ -171,7 +187,8 @@ export class Tab6Page implements OnInit {
     };
     console.log(reqBody);
     let img: Blob;
-    if (this.image.name != '') {
+
+    if (this.image.path != '') {
       reqBody.profile = this.image.name;
       const respond = await fetch(this.image.data);
       console.log(respond);
@@ -184,19 +201,22 @@ export class Tab6Page implements OnInit {
       // msg = respond.data.message; // debug
       if (respond.data.edit_status === 'success') {
         if (img) {
+          // jika ada image baru
+          console.log(img);
+
           this.api
             .uploadProfileImage(img, this.image.name)
             .subscribe((respond) => {
               // msg = JSON.stringify(respond); //debug
               console.log(respond);
-              console.log('oldprofile : ', this.oldProfile);
+              console.log('profile : ', this.profile);
             });
+          this.api.deleteProfileImage(this.profile).subscribe((respond) => {
+            // msg = JSON.stringify(respond); //debug
+            console.log(respond);
+          });
         }
-        this.api.deleteProfileImage(this.oldProfile).subscribe((respond) => {
-          // msg = JSON.stringify(respond); //debug
-          console.log(respond);
-          loading.dismiss();
-        });
+        loading.dismiss();
         this.alertController
           .create({
             header: 'Notifikasi',
@@ -223,4 +243,274 @@ export class Tab6Page implements OnInit {
       }
     });
   }
+
+  async delete() {
+    await this.authService.checkToken();
+    this.id = (await Preferences.get({ key: 'id' })).value;
+    this.alertController
+      .create({
+        header: 'Perhatian',
+        subHeader: 'Apa anda yakin ingin menghapus akun?',
+        buttons: [
+          {
+            text: 'Batal',
+            handler: (data: any) => {
+              console.log('Canceled', data);
+            },
+          },
+          {
+            text: 'Yakin',
+            handler: async (data: any) => {
+              //jika tekan yakin
+              this.id = (await Preferences.get({ key: 'id' })).value;
+              const loading = await this.loadingCtrl.create({
+                message: 'menghapus akun...',
+              });
+              await loading.present();
+              this.api.accountRemove(this.id || '').subscribe((respond) => {
+                console.log(respond);
+                if (respond.data.delete_status == 'success') {
+                  if (!this.profile || this.profile != '') {
+                    this.api
+                      .deleteProfileImage(this.profile)
+                      .subscribe((respond) => {
+                        console.log(respond);
+                      });
+                  }
+                  this.alertController
+                    .create({
+                      header: 'Notifikasi',
+                      subHeader: 'Hapus akun sukses',
+                      buttons: ['OK'],
+                    })
+                    .then((res) => res.present());
+                  loading.dismiss();
+                  this.authService.logout();
+                  this.router.navigateByUrl('/', { replaceUrl: true });
+                } else {
+                  this.alertController
+                    .create({
+                      header: 'Notifikasi',
+                      subHeader: 'Hapus akun gagal',
+                      buttons: ['OK'],
+                    })
+                    .then((res) => res.present());
+                  loading.dismiss();
+                }
+              });
+            },
+          },
+        ],
+      })
+      .then((res) => res.present());
+  }
+  //   token: any;
+  //   id: string | null = '';
+  //   nama: string | null = '';
+  //   oldNama: string | null = this.nama;
+  //   email: string | null = '';
+  //   role: string | null = '';
+  //   profile: string = '';
+  //   oldProfile: string = '';
+  //   disabledInput: boolean = true;
+  //   image: LocalFile = { name: '', path: '', data: '' };
+
+  //   constructor(
+  //     private authService: AuthenticationService,
+  //     private api: ApiService,
+  //     private alertController: AlertController,
+  //     private router: Router,
+  //     private imgServ: ImageService,
+  //     private loadingCtrl: LoadingController
+  //   ) {}
+
+  //   async ngOnInit(): Promise<void> {
+  //     await this.loadUserData();
+  //     await this.authService.checkToken();
+  //     this.id = (await Preferences.get({ key: 'id' })).value;
+  //     this.image = await this.imgServ.loadLocalImage(
+  //       IMAGE_DIR,
+  //       this.image,
+  //       this.loadingCtrl
+  //     );
+  //     console.log(this.image);
+
+  //     this.api
+  //       .accountGetDetails((await Preferences.get({ key: 'id' })).value || '')
+  //       .subscribe((respond) => {
+  //         // console.log(respond);
+
+  //         if (respond.data.get_status === 'success') {
+  //           this.nama = respond.data.nama;
+  //           this.oldNama = respond.data.nama;
+  //           this.email = respond.data.email;
+  //           this.role = respond.data.role;
+  //           this.profile = respond.data.profile;
+  //           this.oldProfile = respond.data.profile;
+  //           // console.log(this.profile);
+  //           if (this.profile != '') {
+  //             this.image.data = `${this.api.baseApiUrl()}accounts/image/${
+  //               this.profile
+  //             }`;
+  //             this.image.name = this.profile;
+  //             console.log('image data : ', this.image.data);
+  //           }
+  //         } else if (respond.data.get_status !== 'failed') {
+  //           location.reload();
+  //         }
+  //       });
+  //     // if (!this.id) {
+  //     // }
+  //   }
+  //   async loadUserData() {
+  //     this.token = (await Preferences.get({ key: 'token' })).value;
+  //   }
+  //   logout() {
+  //     this.alertController
+  //       .create({
+  //         header: 'Perhatian',
+  //         subHeader: 'Yakin Logout aplikasi ?',
+  //         buttons: [
+  //           {
+  //             text: 'Batal',
+  //             handler: (data: any) => {
+  //               console.log('Canceled', data);
+  //             },
+  //           },
+  //           {
+  //             text: 'Yakin',
+  //             handler: (data: any) => {
+  //               //jika tekan yakin
+  //               this.authService.logout();
+  //               this.router.navigateByUrl('/', { replaceUrl: true });
+  //             },
+  //           },
+  //         ],
+  //       })
+  //       .then((res) => {
+  //         res.present();
+  //       });
+  //   }
+  //   async selectImage() {
+  //     // if already select image previously
+  //     if (this.image.path != '') {
+  //       await this.imgServ.deleteLocalImages(this.image);
+  //       // this.image = { name: '', path: '', data: '' };
+  //     }
+  //     // grab image and save to local data
+  //     await this.imgServ.grabImageSaveLocal(IMAGE_DIR);
+  //     // load local image
+  //     this.image = await this.imgServ.loadLocalImage(
+  //       IMAGE_DIR,
+  //       this.image,
+  //       this.loadingCtrl
+  //     );
+  //     console.log(this.image);
+  //   }
+
+  //   async deleteSelected() {
+  //     try {
+  //       await this.imgServ.deleteLocalImages(this.image);
+  //       this.image = await this.imgServ.loadLocalImage(
+  //         IMAGE_DIR,
+  //         this.image,
+  //         this.loadingCtrl
+  //       );
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //     this.image = { name: '', path: '', data: '' };
+  //   }
+
+  //   async editNama() {
+  //     this.disabledInput = false;
+  //   }
+
+  //   async cancelUpdate() {
+  //     this.disabledInput = true;
+  //     this.nama = this.oldNama;
+  //     if (!this.profile || this.profile != '') {
+  //       this.image.data = `${this.api.baseApiUrl()}accounts/image/${
+  //         this.profile
+  //       }`;
+  //       this.image.name = this.profile;
+  //     } else {
+  //       this.image.data = { name: '', path: '', data: '' };
+  //     }
+  //   }
+
+  //   async update() {
+  //     if (
+  //       this.nama == this.oldNama &&
+  //       this.image.data ==
+  //         `${this.api.baseApiUrl()}accounts/image/${this.profile}`
+  //     ) {
+  //       console.log('tidak ada yang berubah');
+
+  //       return;
+  //     }
+  //     const loading = await this.loadingCtrl.create({
+  //       message: 'loading images',
+  //     });
+  //     // let msg; // debug
+  //     await loading.present();
+  //     const reqBody = {
+  //       id: this.id,
+  //       nama: `${this.nama == this.oldNama ? this.oldNama : this.nama}`,
+  //       profile: `${this.image.name}`,
+  //     };
+  //     console.log(reqBody);
+  //     let img: Blob;
+  //     if (this.image.name != '') {
+  //       reqBody.profile = this.image.name;
+  //       const respond = await fetch(this.image.data);
+  //       console.log(respond);
+
+  //       img = await respond.blob();
+  //       console.log(img);
+  //     }
+  //     this.api.accountEdit(reqBody).subscribe((respond) => {
+  //       console.log(respond);
+  //       // msg = respond.data.message; // debug
+  //       if (respond.data.edit_status === 'success') {
+  //         if (img) {
+  //           this.api
+  //             .uploadProfileImage(img, this.image.name)
+  //             .subscribe((respond) => {
+  //               // msg = JSON.stringify(respond); //debug
+  //               console.log(respond);
+  //               console.log('oldprofile : ', this.oldProfile);
+  //             });
+  //         }
+  //         this.api.deleteProfileImage(this.oldProfile).subscribe((respond) => {
+  //           // msg = JSON.stringify(respond); //debug
+  //           console.log(respond);
+  //           loading.dismiss();
+  //         });
+  //         this.alertController
+  //           .create({
+  //             header: 'Notifikasi',
+  //             subHeader: 'Edit profile sukses!',
+  //             buttons: [
+  //               {
+  //                 text: 'OK',
+  //                 handler: () => {
+  //                   this.deleteSelected();
+  //                   location.reload();
+  //                 },
+  //               },
+  //             ],
+  //           })
+  //           .then((res: any) => {
+  //             res.present();
+  //           });
+  //         console.log('edit berhasil');
+  //         // this.deleteSelected();
+  //         // location.reload();
+  //       } else {
+  //         console.log(respond.data.message);
+  //         loading.dismiss();
+  //       }
+  //     });
+  //   }
 }

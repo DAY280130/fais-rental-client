@@ -35,10 +35,19 @@ export class ApiService {
     );
   }
 
+  accountGetDetails(id: string) {
+    return from(
+      Http.request({
+        method: 'GET',
+        url: this.baseApiUrl() + 'accounts/details/' + id,
+      })
+    );
+  }
+
   accountEdit(data: Object): Observable<any> {
     return from(
       Http.request({
-        method: 'POST',
+        method: 'PUT',
         url: this.baseApiUrl() + 'accounts/edit',
         headers: { 'Content-Type': 'application/json' },
         data,
@@ -46,11 +55,15 @@ export class ApiService {
     );
   }
 
-  accountGetDetails(id: string) {
+  accountRemove(id: string) {
     return from(
       Http.request({
-        method: 'GET',
-        url: this.baseApiUrl() + 'accounts/details/' + id,
+        method: 'DELETE',
+        url: this.baseApiUrl() + 'accounts/remove',
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+          id,
+        },
       })
     );
   }

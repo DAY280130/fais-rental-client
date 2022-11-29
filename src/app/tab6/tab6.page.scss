@@ -56,18 +56,27 @@ ion-grid {
 }
 
 ion-item::part(native) {
-  margin-bottom: 5%;
+  margin-bottom: 1rem;
   --padding-start: 0;
+  --padding-end: 0;
   --inner-padding-start: 0;
-}
-
-.form-texts {
-  display: block;
-  a {
-    text-decoration: none;
+  --inner-padding-end: 0;
+  @media (min-width: 786px) {
+    --padding-start: 10px;
+    --padding-end: 10px;
   }
 }
 
-ion-button[type="submit"] {
-  font-weight: 600;
+.btn-edit-form {
+  width: 5rem !important;
+  @media (min-width: 786px) {
+    width: 6rem !important;
+  }
+}
+
+.btn-delete {
+  @media (min-width: 786px) {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
