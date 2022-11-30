@@ -39,7 +39,6 @@ export class AuthenticationService {
   }
 
   async checkToken() {
-    let id;
     const data = {
       token: (await Preferences.get({ key: 'token' })).value,
       user: (await Preferences.get({ key: 'user' })).value,

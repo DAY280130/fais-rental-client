@@ -23,12 +23,20 @@ ion-item:last-child span[slot="end"]:last-child {
   margin-top: 1.5rem;
 }
 
+.processing {
+  color: var(--ion-color-light);
+}
+
 .confirmed {
   color: var(--ion-color-success);
 }
 
-.processing {
+.done {
   color: var(--ion-color-medium);
+}
+
+.rejected {
+  color: var(--ion-color-danger);
 }
 
 .price {

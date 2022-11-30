@@ -1,64 +1,47 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Tab 5 </ion-title>
+    <ion-title> Peminjaman Saya </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 5</ion-title>
+      <ion-title size="large">Peminjaman Saya</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <!-- Order Card -->
-      <ion-col size="12" size-md="8" size-lg="6">
+      <!-- Order Card Dynamic-->
+      <ion-col *ngFor="let order of orders" size="12" size-md="8" size-lg="6">
         <ion-card color="dark" class="ion-no-margin">
           <ion-card-content class="ion-no-margin">
             <ion-item color="dark" lines="none">
               <span slot="start">Kode Transaksi</span>
-              <span slot="end">DIMAS0001</span>
+              <span slot="end">{{order.order_id}}</span>
+            </ion-item>
+            <ion-item color="dark" lines="none">
+              <span slot="start">Mobil</span>
+              <span slot="end">{{order.car_name}}</span>
             </ion-item>
             <ion-item color="dark" lines="none">
               <span slot="start">Durasi</span>
-              <span slot="end">3 hari</span>
+              <span slot="end">{{order.duration}} hari</span>
             </ion-item>
             <ion-item color="dark" lines="full">
-              <span slot="start">Penyewa</span>
-              <span slot="end">Dimas</span>
+              <span slot="start">Tanggal Konfirmasi</span>
+              <span slot="end"
+                >{{order.confirmed_date ? order.confirmed_date : '-'}}</span
+              >
             </ion-item>
             <ion-item color="dark" lines="none">
-              <span class="price" slot="start">Rp 500.000,00</span>
-              <span class="ion-text-end ion-no-margin confirmed" slot="end">
-                Sudah Dikonfirmasi
-              </span>
-            </ion-item>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <!-- Order Card End -->
-      <!-- Order Card -->
-      <ion-col size="12" size-md="8" size-lg="6">
-        <ion-card color="dark" class="ion-no-margin">
-          <ion-card-content class="ion-no-margin">
-            <ion-item color="dark" lines="none">
-              <span slot="start">Kode Transaksi</span>
-              <span slot="end">DIMAS0002</span>
-            </ion-item>
-            <ion-item color="dark" lines="none">
-              <span slot="start">Durasi</span>
-              <span slot="end">3 hari</span>
-            </ion-item>
-            <ion-item color="dark" lines="full">
-              <span slot="start">Penyewa</span>
-              <span slot="end">Dimas</span>
-            </ion-item>
-            <ion-item color="dark" lines="none">
-              <span class="price" slot="start">Rp 400.000,00</span>
-              <span class="ion-text-end ion-no-margin processing" slot="end">
-                Menunggu Konfirmasi
+              <span class="price" slot="start">{{order.price_string}}</span>
+              <span
+                class="ion-text-end ion-no-margin {{order.status}}"
+                slot="end"
+              >
+                {{order.status_string}}
               </span>
             </ion-item>
           </ion-card-content>

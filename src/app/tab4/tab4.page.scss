@@ -4,35 +4,28 @@ ion-card-title {
   font-weight: 700;
 
   @media (max-width: 577px) {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
   @media (min-width: 578px) {
-    font-size: 1.6rem;
-  }
-  @media (min-width: 992px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 5%;
   }
 }
 
 ion-card-content {
   margin-left: 1%;
-
   @media (max-width: 577px) {
-    font-size: 0.5rem;
+    font-size: 1rem;
   }
   @media (min-width: 578px) {
-    font-size: 0.8rem;
-  }
-  @media (min-width: 992px) {
     font-size: 1.2rem;
   }
 }
 
 ion-card-content ion-col span {
-  display: block;
+  display: flex;
 
-  @media (min-width: 992px) {
+  @media (min-width: 578px) {
     margin-bottom: 5%;
   }
 }
@@ -40,13 +33,10 @@ ion-card-content ion-col span {
 .price {
   font-weight: 600;
   @media (max-width: 577px) {
-    font-size: 0.6rem;
-  }
-  @media (min-width: 578px) {
     font-size: 1rem;
   }
-  @media (min-width: 992px) {
-    font-size: 1.8rem;
+  @media (min-width: 578px) {
+    font-size: 1.5rem;
   }
 }
 
@@ -61,6 +51,65 @@ ion-card.status {
     }
     @media (min-width: 578px) {
       font-size: 1.2rem;
+    }
+  }
+}
+
+ion-modal {
+  --min-width: 80vw;
+
+  ion-card-title {
+    padding-top: 5%;
+  }
+
+  ion-card {
+    border-radius: 20px;
+  }
+
+  .car-details {
+    padding: 0 30% !important;
+    font-size: 1.3em;
+  }
+
+  .price {
+    display: block;
+    text-align: center;
+    ion-input {
+      display: inline-block !important;
+      max-width: 8% !important;
+    }
+  }
+
+  .label {
+    display: inline-block;
+    min-width: 50px;
+  }
+
+  ion-item::part(native) {
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    @media (min-width: 786px) {
+      --padding-start: 10px;
+      --padding-end: 10px;
+    }
+  }
+
+  ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    ion-input {
+      max-width: 30% !important;
+    }
+  }
+
+  .btn-edit-form {
+    width: 5rem !important;
+    @media (min-width: 578px) {
+      font-size: large;
+      height: 3rem !important;
+      width: 10rem !important;
     }
   }
 }

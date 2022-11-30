@@ -24,6 +24,17 @@ export class ApiService {
     );
   }
 
+  accountCheckToken(data: Object): Observable<any> {
+    return from(
+      Http.request({
+        method: 'POST',
+        url: this.baseApiUrl() + 'accounts/token',
+        headers: { 'Content-Type': 'application/json' },
+        data,
+      })
+    );
+  }
+
   accountRegister(data: Object): Observable<any> {
     return from(
       Http.request({
@@ -68,6 +79,54 @@ export class ApiService {
     );
   }
 
+  carGetAll() {
+    return from(
+      Http.request({
+        method: 'GET',
+        url: this.baseApiUrl() + 'cars/getall',
+      })
+    );
+  }
+
+  carGet(id: string) {
+    return from(
+      Http.request({
+        method: 'GET',
+        url: this.baseApiUrl() + 'cars/get/' + id,
+      })
+    );
+  }
+
+  orderMake(
+    renter_id: string,
+    car_id: string,
+    duration: number,
+    price: number
+  ) {
+    return from(
+      Http.request({
+        method: 'POST',
+        url: this.baseApiUrl() + 'orders/add/',
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+          renter_id,
+          car_id,
+          duration,
+          price,
+        },
+      })
+    );
+  }
+
+  orderGetByRenter(id: string) {
+    return from(
+      Http.request({
+        method: 'GET',
+        url: this.baseApiUrl() + 'orders/getall/' + id,
+      })
+    );
+  }
+
   uploadProfileImage(img: Blob, imageName: string) {
     const formData = new FormData();
     formData.append('profile', img, imageName);
@@ -88,17 +147,6 @@ export class ApiService {
         data: {
           filename: imageName,
         },
-      })
-    );
-  }
-
-  accountCheckToken(data: Object): Observable<any> {
-    return from(
-      Http.request({
-        method: 'POST',
-        url: this.baseApiUrl() + 'accounts/token',
-        headers: { 'Content-Type': 'application/json' },
-        data,
       })
     );
   }

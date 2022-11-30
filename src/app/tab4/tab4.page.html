@@ -13,15 +13,22 @@
 
   <ion-grid>
     <ion-row>
-      <!-- Car Card -->
-      <ion-col size="12" size-md="6">
-        <ion-card color="dark" class="ion-no-margin" disabled>
+      <!-- Car Card Dynamic -->
+      <ion-col *ngFor="let car of cars" size="12" size-md="6">
+        <ion-card
+          color="dark"
+          id="open-order-modal"
+          class="ion-no-margin"
+          button
+          (click)="openModal(car.index)"
+          disabled="{{(car.status == 'Tidak Tersedia') ? true : false}}"
+        >
           <ion-row>
             <!-- Car Image -->
             <ion-col size="5">
               <ion-img
-                src="assets/images/cars/lance-asper.jpg"
-                alt="Lance Asper"
+                src="{{baseImgUrl()+car.image}}"
+                alt="{{car.image}}"
               ></ion-img>
             </ion-col>
             <!-- Car Image End -->
@@ -30,7 +37,7 @@
               <!-- Car Name -->
               <ion-row class="ion-no-padding">
                 <ion-card-title class="card-title ion-no-padding"
-                  >Lance Asper</ion-card-title
+                  >{{car.nama}}</ion-card-title
                 >
               </ion-row>
               <!-- Car Name End -->
@@ -38,21 +45,27 @@
               <ion-card-content class="ion-no-padding">
                 <ion-row>
                   <ion-col class="ion-no-padding">
-                    <span>
-                      <ion-icon name="calendar-outline"></ion-icon> 2020
+                    <span class="ion-align-items-center">
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      &nbsp;{{car.tahun}}
                     </span>
-                    <span> <ion-icon name="person-outline"></ion-icon> 4 </span>
+                    <span class="ion-align-items-center">
+                      <ion-icon name="person-outline"></ion-icon>
+                      &nbsp;{{car.seat}}
+                    </span>
                   </ion-col>
                   <ion-col class="ion-no-padding">
-                    <span>
-                      <ion-icon name="cog-outline"></ion-icon> Manual
+                    <span class="ion-align-items-center">
+                      <ion-icon name="cog-outline"></ion-icon>
+                      &nbsp;{{car.gear}}
                     </span>
-                    <span>
-                      <ion-icon name="color-palette-outline"></ion-icon> Hitam
+                    <span class="ion-align-items-center">
+                      <ion-icon name="color-palette-outline"></ion-icon>
+                      &nbsp;{{car.color}}
                     </span>
                   </ion-col>
                 </ion-row>
-                <div class="price">Rp 500.000,00 / hari</div>
+                <div class="price">{{car.price_string}} / hari</div>
               </ion-card-content>
               <!-- Car More Info End -->
             </ion-col>
@@ -62,72 +75,11 @@
           <ion-row class="ion-justify-content-center">
             <ion-col size="9" size-md="6">
               <ion-card
-                color="medium"
+                color="{{(car.status == 'Tidak Tersedia') ? 'medium' : 'success'}}"
                 expand="full"
                 class="ion-text-center status"
               >
-                <ion-card-content> Tidak Tersedia </ion-card-content>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-          <!-- Action/Status End -->
-        </ion-card>
-      </ion-col>
-      <!-- Car Card End -->
-      <!-- Car Card -->
-      <ion-col size="12" size-md="6">
-        <ion-card color="dark" class="ion-no-margin">
-          <ion-row>
-            <!-- Car Image -->
-            <ion-col size="5">
-              <ion-img
-                src="assets/images/cars/toyota-van.jpg"
-                alt="Lance Asper"
-              ></ion-img>
-            </ion-col>
-            <!-- Car Image End -->
-            <!-- Car Info -->
-            <ion-col>
-              <!-- Car Name -->
-              <ion-row class="ion-no-padding">
-                <ion-card-title class="card-title ion-no-padding"
-                  >Toyota Van</ion-card-title
-                >
-              </ion-row>
-              <!-- Car Name End -->
-              <!-- Car More Info -->
-              <ion-card-content class="ion-no-padding">
-                <ion-row>
-                  <ion-col class="ion-no-padding">
-                    <span>
-                      <ion-icon name="calendar-outline"></ion-icon> 2020
-                    </span>
-                    <span> <ion-icon name="person-outline"></ion-icon> 6 </span>
-                  </ion-col>
-                  <ion-col class="ion-no-padding">
-                    <span>
-                      <ion-icon name="cog-outline"></ion-icon> Manual
-                    </span>
-                    <span>
-                      <ion-icon name="color-palette-outline"></ion-icon> Hitam
-                    </span>
-                  </ion-col>
-                </ion-row>
-                <div class="price">Rp 400.000,00 / hari</div>
-              </ion-card-content>
-              <!-- Car More Info End -->
-            </ion-col>
-            <!-- Car Info End -->
-          </ion-row>
-          <!-- Action/Status -->
-          <ion-row class="ion-justify-content-center">
-            <ion-col size="9" size-md="6">
-              <ion-card
-                color="success"
-                expand="full"
-                class="ion-text-center status"
-              >
-                <ion-card-content> Tersedia </ion-card-content>
+                <ion-card-content> {{car.status}} </ion-card-content>
               </ion-card>
             </ion-col>
           </ion-row>
@@ -137,7 +89,106 @@
       <!-- Car Card End -->
     </ion-row>
   </ion-grid>
-  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+  <ion-modal
+    [isOpen]="isOrderModalOpen"
+    backdropDismiss="false"
+    showBackdrop="false"
+  >
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Sewa Mobil</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-grid>
+          <ion-row class="ion-align-items-stretch">
+            <ion-col size="12" size-lg="5" class="ion-no-padding">
+              <ion-card>
+                <ion-card-content class="ion-text-center">
+                  <ion-img
+                    src="{{baseImgUrl()+modalCar.image}}"
+                    alt="{{modalCar.image}}"
+                    class="pic-profile"
+                  ></ion-img>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col class="ion-no-padding">
+              <ion-card color="dark">
+                <ion-row class="ion-justify-content-center">
+                  <ion-card-title color="light"
+                    >{{modalCar.nama}}</ion-card-title
+                  >
+                </ion-row>
+                <ion-card-content class="ion-no-margin">
+                  <div class="car-details">
+                    <ion-row>
+                      <ion-col class="ion-no-padding">
+                        <span class="ion-align-items-center">
+                          <ion-icon name="calendar-outline"></ion-icon>
+                          &nbsp;{{modalCar.tahun}}
+                        </span>
+                        <span class="ion-align-items-center">
+                          <ion-icon name="person-outline"></ion-icon>
+                          &nbsp;{{modalCar.seat}}
+                        </span>
+                      </ion-col>
+                      <ion-col class="ion-no-padding">
+                        <span class="ion-align-items-center">
+                          <ion-icon name="cog-outline"></ion-icon>
+                          &nbsp;{{modalCar.gear}}
+                        </span>
+                        <span class="ion-align-items-center">
+                          <ion-icon name="color-palette-outline"></ion-icon>
+                          &nbsp;{{modalCar.color}}
+                        </span>
+                      </ion-col>
+                    </ion-row>
+                  </div>
+                  <div class="price">
+                    Durasi Sewa :&nbsp;
+                    <span class="input">
+                      <ion-input
+                        type="number"
+                        placeholder="0"
+                        required="true"
+                        min="1"
+                        [(ngModel)]="orderDetails.duration"
+                      ></ion-input>
+                    </span>
+                    Hari x {{modalCar.price_string}}
+                  </div>
+                  <div class="price">Total : {{totalPriceString()}}</div>
+                  <ion-item color="transparent" lines="none">
+                    <ion-button
+                      slot="start"
+                      type="submit"
+                      color="dark"
+                      shape="round"
+                      class="btn-edit-form"
+                      (click)="closeModal()"
+                    >
+                      Batal
+                    </ion-button>
+                    <ion-button
+                      slot="end"
+                      color="primary"
+                      shape="round"
+                      class="btn-edit-form"
+                      (click)="order()"
+                    >
+                      Pesan
+                    </ion-button>
+                  </ion-item>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
 <!-- <ion-header>
