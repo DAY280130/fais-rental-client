@@ -18,4 +18,8 @@ export class Tab1Page implements OnInit {
       console.log('tab1', (await Preferences.get({ key: 'id' })).value);
     });
   }
+
+  reload() {
+    location.reload();
+  }
 }

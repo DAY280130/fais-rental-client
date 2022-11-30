@@ -24,7 +24,7 @@ export class Tab5Page implements OnInit {
         console.log(respond);
         if (respond.data.read_status === 'success') {
           this.orders = respond.data.orders;
-          this.orders.map(async (order, i) => {
+          this.orders.map((order, i) => {
             this.api.carGet(order.car_id).subscribe((respond) => {
               console.log('order' + i + ' : ', respond);
               if (respond.data.read_status == 'success') {
@@ -57,5 +57,9 @@ export class Tab5Page implements OnInit {
         }
       });
     });
+  }
+
+  reload() {
+    location.reload();
   }
 }

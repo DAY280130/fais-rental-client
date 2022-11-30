@@ -1,20 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Peminjaman Saya </ion-title>
+    <ion-title> Pesanan Saya </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="reload()">
+        <ion-icon name="reload-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Peminjaman Saya</ion-title>
+      <ion-title size="large">Pesanan Saya</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="reload()">
+          <ion-icon name="reload-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <!-- Order Card Dynamic-->
-      <ion-col *ngFor="let order of orders" size="12" size-md="8" size-lg="6">
+      <ion-col *ngFor="let order of orders" size="12" size-md="8">
         <ion-card color="dark" class="ion-no-margin">
           <ion-card-content class="ion-no-margin">
             <ion-item color="dark" lines="none">

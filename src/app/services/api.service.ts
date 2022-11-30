@@ -10,7 +10,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   baseApiUrl(): string {
-    return 'http://192.168.1.5:8000/api/';
+    return 'http://192.168.1.15:8000/api/';
   }
 
   accountLogin(data: Object): Observable<any> {
@@ -118,11 +118,59 @@ export class ApiService {
     );
   }
 
+  orderGetAll() {
+    return from(
+      Http.request({
+        method: 'GET',
+        url: this.baseApiUrl() + 'orders/getall-admin',
+      })
+    );
+  }
+
   orderGetByRenter(id: string) {
     return from(
       Http.request({
         method: 'GET',
         url: this.baseApiUrl() + 'orders/getall/' + id,
+      })
+    );
+  }
+
+  orderConfirm(id: string) {
+    return from(
+      Http.request({
+        method: 'PUT',
+        url: this.baseApiUrl() + 'orders/confirm',
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+          order_id: id,
+        },
+      })
+    );
+  }
+
+  orderReject(id: string) {
+    return from(
+      Http.request({
+        method: 'PUT',
+        url: this.baseApiUrl() + 'orders/reject',
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+          order_id: id,
+        },
+      })
+    );
+  }
+
+  orderFinish(id: string) {
+    return from(
+      Http.request({
+        method: 'PUT',
+        url: this.baseApiUrl() + 'orders/complete',
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+          order_id: id,
+        },
       })
     );
   }

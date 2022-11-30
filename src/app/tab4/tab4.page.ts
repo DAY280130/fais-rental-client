@@ -80,6 +80,7 @@ export class Tab4Page implements OnInit {
   }
 
   async order() {
+    this.id = (await Preferences.get({ key: 'id' })).value;
     this.orderDetails.total_price =
       this.orderDetails.duration * this.modalCar.price;
     this.alertController
@@ -102,7 +103,7 @@ export class Tab4Page implements OnInit {
                 )
                 .subscribe((respond) => {
                   console.log(respond);
-                  if (respond.data.message === 'success') {
+                  if (respond.data.create_status === 'success') {
                     this.alertController
                       .create({
                         header: 'Notifikasi',
@@ -150,5 +151,9 @@ export class Tab4Page implements OnInit {
 
   baseImgUrl(): string {
     return this.api.baseApiUrl() + 'cars/image/';
+  }
+
+  reload() {
+    location.reload();
   }
 }

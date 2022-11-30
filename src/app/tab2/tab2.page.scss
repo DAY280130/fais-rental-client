@@ -38,17 +38,13 @@ ion-button {
 }
 
 ion-card ion-button {
-  margin-top: 5%;
+  margin: 5% 5px 0 5px;
   @media (max-width: 577px) {
-    width: 100%;
+    width: 7rem;
     font-size: 0.5rem;
   }
   @media (min-width: 578px) {
-    width: 50%;
-    font-size: 0.8rem;
-  }
-  @media (min-width: 992px) {
-    width: 30%;
+    width: 10rem;
     font-size: 0.8rem;
   }
 }
