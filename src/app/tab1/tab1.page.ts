@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
+import { ApiService } from '../services/api.service';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -8,15 +9,48 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page implements OnInit {
-  constructor(private authService: AuthenticationService) {}
+  cars: any[] = [];
+
+  constructor(
+    private authService: AuthenticationService,
+    private api: ApiService
+  ) {}
   async ngOnInit() {
-    await this.loadId();
+    await this.authService.checkToken();
+    this.api.carGetAll().subscribe((respond) => {
+      console.log(respond);
+      if (respond.data.read_status === 'success') {
+        this.cars = respond.data.cars;
+        this.cars.map((car, index) => {
+          car.price_string = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+          }).format(car.price);
+          car.index = index;
+        });
+        console.log(this.cars);
+      }
+    });
   }
 
-  async loadId() {
-    this.authService.checkToken().then(async () => {
-      console.log('tab1', (await Preferences.get({ key: 'id' })).value);
-    });
+  openAddCarModal() {}
+
+  addCar() {}
+
+  openEditCarModal(id: string) {
+    console.log(id);
+  }
+
+  editCar() {}
+
+  cancelModal() {}
+
+  deleteCar(id: string) {
+    console.log(id);
+  }
+
+  baseImgUrl(): string {
+    return this.api.baseApiUrl() + 'cars/image/';
   }
 
   reload() {

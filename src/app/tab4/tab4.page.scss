@@ -38,11 +38,6 @@ ion-card-content ion-col span {
   @media (min-width: 578px) {
     font-size: 1.5rem;
   }
-  ion-input {
-    width: 30px !important;
-    border-radius: 10px !important;
-    --background: #ccc;
-  }
 }
 
 ion-card.status {
@@ -62,6 +57,7 @@ ion-card.status {
 
 ion-modal {
   --min-width: 80vw;
+  --min-height: 80vh;
 
   ion-card-title {
     padding-top: 5%;
@@ -74,6 +70,9 @@ ion-modal {
   .car-details {
     padding: 0 30% !important;
     font-size: 1.3em;
+    @media (min-width: 992px) {
+      padding: 0 20% !important;
+    }
   }
 
   .price {
@@ -82,6 +81,13 @@ ion-modal {
     ion-input {
       display: inline-block !important;
       max-width: 8% !important;
+      text-align: center !important;
+      width: 30px !important;
+      @media (min-width: 578px) {
+        width: 40px !important;
+      }
+      border-radius: 10px !important;
+      --background: #ccc;
     }
   }
 

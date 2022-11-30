@@ -29,19 +29,20 @@
           color="primary"
           expand="full"
           class="ion-no-margin"
+          (click)="openAddCarModal()"
           >Tambah Mobil</ion-button
         >
       </ion-col>
     </ion-row>
     <ion-row>
-      <!-- Car Card -->
-      <ion-col size="12" size-md="6">
+      <!-- Car Card Dynamic -->
+      <ion-col *ngFor="let car of cars" size="12" size-md="6">
         <ion-card color="dark" class="ion-no-margin">
           <ion-row>
             <!-- Car Image -->
             <ion-col size="5">
               <ion-img
-                src="assets/images/cars/lance-asper.jpg"
+                src="{{baseImgUrl()+car.image}}"
                 alt="Lance Asper"
               ></ion-img>
             </ion-col>
@@ -51,7 +52,7 @@
               <!-- Car Name -->
               <ion-row class="ion-no-padding">
                 <ion-card-title class="card-title ion-no-padding"
-                  >Lance Asper</ion-card-title
+                  >{{car.nama}}</ion-card-title
                 >
               </ion-row>
               <!-- Car Name End -->
@@ -60,20 +61,24 @@
                 <ion-row>
                   <ion-col class="ion-no-padding">
                     <span>
-                      <ion-icon name="calendar-outline"></ion-icon> 2020
+                      <ion-icon name="calendar-outline"></ion-icon>
+                      {{car.tahun}}
                     </span>
-                    <span> <ion-icon name="person-outline"></ion-icon> 4 </span>
+                    <span>
+                      <ion-icon name="person-outline"></ion-icon> {{car.seat}}
+                    </span>
                   </ion-col>
                   <ion-col class="ion-no-padding">
                     <span>
-                      <ion-icon name="cog-outline"></ion-icon> Manual
+                      <ion-icon name="cog-outline"></ion-icon> {{car.gear}}
                     </span>
                     <span>
-                      <ion-icon name="color-palette-outline"></ion-icon> Hitam
+                      <ion-icon name="color-palette-outline"></ion-icon>
+                      {{car.color}}
                     </span>
                   </ion-col>
                 </ion-row>
-                <div class="price">Rp 500.000,00 / hari</div>
+                <div class="price">{{car.price_string}} / hari</div>
               </ion-card-content>
               <!-- Car More Info End -->
             </ion-col>
@@ -82,68 +87,20 @@
           <!-- Action/Status -->
           <ion-row class="ion-text-center">
             <ion-col>
-              <ion-button shape="round" color="primary">Ubah</ion-button>
+              <ion-button
+                shape="round"
+                color="primary"
+                (click)="openEditCarModal(car.id)"
+                >Ubah</ion-button
+              >
             </ion-col>
             <ion-col>
-              <ion-button shape="round" color="danger">Hapus</ion-button>
-            </ion-col>
-          </ion-row>
-          <!-- Action/Status End -->
-        </ion-card>
-      </ion-col>
-      <!-- Car Card End -->
-      <!-- Car Card -->
-      <ion-col size="12" size-md="6">
-        <ion-card color="dark" class="ion-no-margin">
-          <ion-row>
-            <!-- Car Image -->
-            <ion-col size="5">
-              <ion-img
-                src="assets/images/cars/toyota-van.jpg"
-                alt="Lance Asper"
-              ></ion-img>
-            </ion-col>
-            <!-- Car Image End -->
-            <!-- Car Info -->
-            <ion-col>
-              <!-- Car Name -->
-              <ion-row class="ion-no-padding">
-                <ion-card-title class="card-title ion-no-padding"
-                  >Toyota Van</ion-card-title
-                >
-              </ion-row>
-              <!-- Car Name End -->
-              <!-- Car More Info -->
-              <ion-card-content class="ion-no-padding">
-                <ion-row>
-                  <ion-col class="ion-no-padding">
-                    <span>
-                      <ion-icon name="calendar-outline"></ion-icon> 2020
-                    </span>
-                    <span> <ion-icon name="person-outline"></ion-icon> 6 </span>
-                  </ion-col>
-                  <ion-col class="ion-no-padding">
-                    <span>
-                      <ion-icon name="cog-outline"></ion-icon> Manual
-                    </span>
-                    <span>
-                      <ion-icon name="color-palette-outline"></ion-icon> Hitam
-                    </span>
-                  </ion-col>
-                </ion-row>
-                <div class="price">Rp 400.000,00 / hari</div>
-              </ion-card-content>
-              <!-- Car More Info End -->
-            </ion-col>
-            <!-- Car Info End -->
-          </ion-row>
-          <!-- Action/Status -->
-          <ion-row class="ion-text-center">
-            <ion-col>
-              <ion-button shape="round" color="primary">Ubah</ion-button>
-            </ion-col>
-            <ion-col>
-              <ion-button shape="round" color="danger">Hapus</ion-button>
+              <ion-button
+                shape="round"
+                color="danger"
+                (click)="deleteCar(car.id)"
+                >Hapus</ion-button
+              >
             </ion-col>
           </ion-row>
           <!-- Action/Status End -->
