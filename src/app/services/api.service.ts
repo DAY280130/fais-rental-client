@@ -10,7 +10,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   baseApiUrl(): string {
-    return 'http://192.168.1.15:8000/api/';
+    // return 'http://192.168.1.15:8000/api/';
+    return 'http://10.100.6.83:8000/api/';
   }
 
   accountLogin(data: Object): Observable<any> {
@@ -93,6 +94,41 @@ export class ApiService {
       Http.request({
         method: 'GET',
         url: this.baseApiUrl() + 'cars/get/' + id,
+      })
+    );
+  }
+
+  carAdd(data: any) {
+    return from(
+      Http.request({
+        method: 'POST',
+        url: this.baseApiUrl() + 'cars/add',
+        headers: { 'Content-Type': 'application/json' },
+        data,
+      })
+    );
+  }
+
+  carEdit(data: any) {
+    return from(
+      Http.request({
+        method: 'PUT',
+        url: this.baseApiUrl() + 'cars/edit',
+        headers: { 'Content-Type': 'application/json' },
+        data,
+      })
+    );
+  }
+
+  carDelete(id: string) {
+    return from(
+      Http.request({
+        method: 'DELETE',
+        url: this.baseApiUrl() + 'cars/remove',
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+          id,
+        },
       })
     );
   }
@@ -182,16 +218,32 @@ export class ApiService {
     return this.http.post(this.baseApiUrl() + 'accounts/upload', formData);
   }
 
+  uploadCarImage(img: Blob, imageName: string) {
+    const formData = new FormData();
+    formData.append('image', img, imageName);
+    formData.append('test', 'test-value');
+    return this.http.post(this.baseApiUrl() + 'cars/upload', formData);
+  }
+
   deleteProfileImage(imageName: string) {
-    // const formData = new FormData();
-    // formData.append('filename', imageName);
-    // console.log(formData);
-    // return this.http.post(this.baseApiUrl() + 'accounts/delimg', formData);
     return from(
       Http.request({
-        method: 'POST',
+        method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         url: this.baseApiUrl() + 'accounts/delimg',
+        data: {
+          filename: imageName,
+        },
+      })
+    );
+  }
+
+  deleteCarImage(imageName: string) {
+    return from(
+      Http.request({
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        url: this.baseApiUrl() + 'cars/delimg',
         data: {
           filename: imageName,
         },

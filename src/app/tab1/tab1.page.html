@@ -43,7 +43,7 @@
             <ion-col size="5">
               <ion-img
                 src="{{baseImgUrl()+car.image}}"
-                alt="Lance Asper"
+                alt="{{car.image}}"
               ></ion-img>
             </ion-col>
             <!-- Car Image End -->
@@ -90,7 +90,7 @@
               <ion-button
                 shape="round"
                 color="primary"
-                (click)="openEditCarModal(car.id)"
+                (click)="openEditCarModal(car.index)"
                 >Ubah</ion-button
               >
             </ion-col>
@@ -98,7 +98,7 @@
               <ion-button
                 shape="round"
                 color="danger"
-                (click)="deleteCar(car.id)"
+                (click)="deleteCar(car.index)"
                 >Hapus</ion-button
               >
             </ion-col>
@@ -109,5 +109,141 @@
       <!-- Car Card End -->
     </ion-row>
   </ion-grid>
-  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
+  <ion-modal
+    [isOpen]="isCarModalOpen"
+    backdropDismiss="false"
+    showBackdrop="false"
+  >
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Tambah Mobil</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-grid>
+        <ion-row class="ion-align-items-stretch">
+          <ion-col size="12" size-lg="5" class="ion-no-padding">
+            <ion-card>
+              <ion-card-content class="ion-text-center">
+                <div class="profile">
+                  <img
+                    src="{{(image.data != '' && image.data != baseImgUrl()) ? image.data : 'assets/images/car/placeholder.jpg'}}"
+                    alt="profile-picture"
+                    class="pic-profile"
+                  />
+                  <ion-button
+                    color="dark"
+                    shape="round"
+                    class="btn-profile-right"
+                    (click)="selectImage()"
+                  >
+                    <ion-icon name="pencil-outline" color="light"></ion-icon>
+                  </ion-button>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col class="ion-no-padding">
+            <ion-card class="">
+              <ion-card-content>
+                <ion-item color="transparent">
+                  <ion-label position="fixed" color="primary"
+                    ><span class="label">Nama</span> :</ion-label
+                  >
+                  <ion-input
+                    type="text"
+                    placeholder="Masukkan nama mobil"
+                    required="required"
+                    [(ngModel)]="modalCar.nama"
+                    requied="required"
+                  ></ion-input>
+                </ion-item>
+                <ion-item color="transparent">
+                  <ion-label position="fixed" color="primary"
+                    ><span class="label">Tahun</span> :</ion-label
+                  >
+                  <ion-input
+                    type="number"
+                    min="1990"
+                    placeholder="Masukkan tahun mobil"
+                    required="required"
+                    [(ngModel)]="modalCar.tahun"
+                    requied="required"
+                  ></ion-input>
+                </ion-item>
+                <ion-item color="transparent">
+                  <ion-label position="fixed" color="primary"
+                    ><span class="label">Seat</span> :</ion-label
+                  >
+                  <ion-input
+                    type="number"
+                    min="2"
+                    placeholder="Masukkan tempat duduk mobil"
+                    required="required"
+                    [(ngModel)]="modalCar.seat"
+                    requied="required"
+                  ></ion-input>
+                </ion-item>
+                <ion-item color="transparent">
+                  <ion-label position="fixed" color="primary"
+                    ><span class="label">Gear</span> :</ion-label
+                  >
+                  <ion-select [(ngModel)]="modalCar.gear">
+                    <ion-select-option value="manual">manual</ion-select-option>
+                    <ion-select-option value="matic">matic</ion-select-option>
+                  </ion-select>
+                </ion-item>
+                <ion-item color="transparent">
+                  <ion-label position="fixed" color="primary"
+                    ><span class="label">Color</span> :</ion-label
+                  >
+                  <ion-input
+                    type="text"
+                    placeholder="Masukkan warna mobil"
+                    required="required"
+                    [(ngModel)]="modalCar.color"
+                    requied="required"
+                  ></ion-input>
+                </ion-item>
+                <ion-item color="transparent">
+                  <ion-label position="fixed" color="primary"
+                    ><span class="label">Price</span> :</ion-label
+                  >
+                  <ion-input
+                    type="number"
+                    min="100000"
+                    placeholder="Masukkan harga sewa mobil perhari"
+                    required="required"
+                    [(ngModel)]="modalCar.price"
+                    requied="required"
+                  ></ion-input>
+                </ion-item>
+                <ion-item color="transparent" lines="none">
+                  <ion-button
+                    slot="start"
+                    type="submit"
+                    color="dark"
+                    shape="round"
+                    class="btn-form"
+                    (click)="cancelModal()"
+                  >
+                    Batal
+                  </ion-button>
+                  <ion-button
+                    slot="end"
+                    color="primary"
+                    shape="round"
+                    class="btn-form"
+                    (click)="modalAction()"
+                  >
+                    {{(newCar) ? "Tambah" : "Edit"}}
+                  </ion-button>
+                </ion-item>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ng-template>
+  </ion-modal>
 </ion-content>

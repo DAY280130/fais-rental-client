@@ -65,3 +65,56 @@ ion-card ion-button {
     font-size: 0.9rem;
   }
 }
+
+ion-modal {
+  --min-width: 80vw !important;
+  --min-height: 90vh !important;
+  ion-card {
+    border-radius: 20px;
+  }
+
+  .profile {
+    display: inline-block;
+    position: relative;
+    .pic-profile {
+      width: 35vh;
+      height: 35vh;
+      border-radius: 50%;
+    }
+
+    .btn-profile-right {
+      position: absolute;
+      z-index: 5;
+      bottom: 5%;
+      right: 5%;
+      width: 50px !important;
+      height: 50px !important;
+      --padding-start: 9px !important;
+      --padding-end: 9px !important;
+    }
+  }
+
+  .label {
+    display: inline-block;
+    min-width: 50px;
+  }
+
+  ion-item::part(native) {
+    margin-bottom: 1rem;
+    --padding-start: 0;
+    --padding-end: 0;
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+    @media (min-width: 786px) {
+      --padding-start: 10px;
+      --padding-end: 10px;
+    }
+  }
+
+  .btn-form {
+    width: 5rem !important;
+    @media (min-width: 786px) {
+      width: 6rem !important;
+    }
+  }
+}
